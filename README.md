@@ -15,33 +15,38 @@ Main goals of this project:
 
 ## Installation
 
-1. Clone project next to [Buildroot](https://github.com/buildroot/buildroot)
+1. Clone project next to [Buildroot](https://github.com/buildroot/buildroot) . i using buildroot 2020.02
 
    ```bash
    git clone https://github.com/korr237i/licheepi-tree.git
    ```
-
-2. Initialize tree as external (fish shell, in `buildroot/`)
+2. Initialize tree of licheepi zero (fish shell, in `buildroot/`)
 
    ```bash
-   make BR2_EXTERNAL=(pwd)/../licheepi-tree/ ../licheepi-tree/configs/licheepi.config
+   make licheepi_zero_defconfig
+
+
+3. Initialize tree as external (fish shell, in `buildroot/`)
+
+   ```bash
+   make BR2_EXTERNAL=../licheepi-tree/ ../licheepi-tree/configs/licheepi.config
    ```
    
    You can check output/.br2-external.mk to see if external tree was initialized correctly.
 
-3. Run `make menuconfig`  to initialize Buildroot and merge config from external tree:
+4. Run `make menuconfig`  to initialize Buildroot and merge config from external tree:
 
    ```bash
    support/kconfig/merge_config.sh .config ../licheepi-tree/configs/licheepi.config
    ```
 
-4. Run `make linux-menuconfig` and save Linux configuration obtained from external tree.
+5. Run `make linux-menuconfig` and save Linux configuration obtained from external tree.
 
-5. Add esp8089 driver to kernel: in `board/setup/`, run `./kernel-add-esp8089.sh`, and enable esp8089 package in `Networking support / Wireless` as kernel module.
+6. Add esp8089 driver to kernel: in `board/setup/`, run `./kernel-add-esp8089.sh`, and enable esp8089 package in `Networking support / Wireless` as kernel module.
 
-6. Run `make`
+7. Run `make`
 
-7. Write image on disk (e.g. /dev/sdc/), in `licheepi-tree/board/`, run:
+8. Write image on disk (e.g. /dev/sdc/), in `licheepi-tree/board/`, run:
     ```bash
     ./target_load.sh "/dev/sdc"
     ```
